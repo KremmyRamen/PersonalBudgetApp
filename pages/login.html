@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Budget App - Login/Signup</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Personal Budget App</h1>
+        <nav>
+            <ul>
+                <li><a href="/pages/index.html">Home</a></li>
+                <li><a href="/pages/login.html">Login/Signup</a></li>
+                <li><a href="/pages/dashboard.html">Dashboard</a></li>
+                <li><a href="/pages/budget.html">Budget</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="/pages/signup.html">Sign up</a> now!</p>
+            <div id="message"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Personal Budget App. Raymond Nguyen.</p>
+    </footer>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Login successful, save JWT token to local storage
+                    localStorage.setItem('token', data.token);
+                    window.location.href = '/pages/dashboard.html'; // Redirect to dashboard
+                } else {
+                    document.getElementById('message').textContent = data.message;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('message').textContent = 'An error occurred. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>
