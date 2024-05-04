@@ -59,13 +59,19 @@ router.post('/login', async (req, res) => {
         }
 
         // Generate JWT token
-        const token = jwt.sign({ username: user.username }, 'your-secret-key', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id, username: user.username }, 'your-secret-key', { expiresIn: '1h' });
 
-        res.status(200).json({ token });
+        // Send the response with token and userId
+        // Removed the redundant response line
+        res.status(200).json({ token, userId: user._id.toString() });  // Only one response is sent here
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        // Ensure no additional response is sent if headers are already sent
+        if (!res.headersSent) {
+            res.status(500).json({ message: 'Internal server error' });
+        }
     }
 });
+
 
 module.exports = router;

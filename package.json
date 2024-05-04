@@ -5,6 +5,7 @@
     "compression": "^1.7.4",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "mongoose": "^8.3.2"
   },
   "name": "final_project",

@@ -20,11 +20,15 @@ header h1 {
 
 nav ul {
     list-style-type: none;
+    display: flex; /* Use flexbox for layout */
 }
 
 nav ul li {
-    display: inline;
     margin-right: 1rem;
+}
+
+nav ul li:last-child {
+    margin-right: 0; /* Remove margin from the last item */
 }
 
 nav ul li a {

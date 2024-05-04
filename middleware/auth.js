@@ -19,8 +19,7 @@ function authenticateToken(req, res, next) {
     }
 
     // Attach the decoded user data to the request object
-    req.user = decoded;
-
+    req.userId = decoded.userId;  // Ensure this matches how you store the userId in the token during the login process
     next();
   });
 }
