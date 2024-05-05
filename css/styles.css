@@ -68,3 +68,87 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.budgets-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;  /* Adjust the space between cards */
+    padding: 20px;
+}
+
+.budget-card {
+    background-color: #f3f3f3;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative; /* Ensures the positioning context is set to the card */
+}
+
+.budget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Aligns items vertically centered */
+    margin-bottom: 10px; /* Adds space below the header */
+    cursor: pointer;
+}
+
+/* Additional styles for the expandable budget details */
+.budget-details {
+    background-color: #fff;
+    padding: 10px;
+    border-top: 2px solid #eee;
+    display: none; /* Initially hidden */
+}
+
+.week-input {
+    margin: 10px 0;
+}
+
+.week-input label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.week-input input {
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 100px;
+}
+
+/* Style for the save button within the budget details */
+.week-input button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Ensure the form stays within the card */
+.budget-card form {
+    margin-top: 10px;
+}
+
+.delete-icon {
+    cursor: pointer;
+    color: #cc0000;
+    font-size: 1.2rem; /* Make the trash icon slightly bigger */
+    position: absolute; /* Allows absolute positioning within the card */
+    top: 10px; /* Adjust the top spacing to align with the title */
+    right: 10px; /* Adjust the right spacing to align properly */
+}
+
+
+.budget-card h4 {
+    font-weight: bold;
+    margin-top: 0;
+    color: #333; /* Dark grey color for text */
+}
+
+.budget-card p {
+    color: #666; /* Medium grey color for the amount */
+}

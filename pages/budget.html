@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Budget App - Budget</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="/js/utils.js" defer></script>
 </head>
-<body>
+<body data-page="budgets">
     <header>
         <h1>Personal Budget App</h1>
         <div id="navigation-placeholder"></div>
@@ -28,86 +29,69 @@
             </form>
             <div id="message"></div>
         </section>
+    
+        <section>
+            <h2>Existing Budgets</h2>
+            <div id="budgetsList" class="budgets-container"></div>
+        </section>
+        </div>
+        
+
+        <section>
+            <label for="sortOrder">Sort By:</label>
+            <select id="sortOrder">
+                <option value="amount_desc">Price (High to Low)</option>
+                <option value="amount_asc">Price (Low to High)</option>
+                <option value="createdAt_desc">Date Created (Newest First)</option>
+                <option value="createdAt_asc">Date Created (Oldest First)</option>
+            </select>
+        </section>
     </main>
     <footer>
         <p>&copy; 2024 Personal Budget App. Raymond Nguyen.</p>
     </footer>
-
-    <script src="/path/to/jwt-decode.js"></script> <!-- Make sure you have the correct path to your jwt-decode library -->
-
     <script>
-        fetch('/pages/navigation.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('navigation-placeholder').innerHTML = html;
-                updateNavigation();
-            })
-            .catch(error => console.error('Error fetching navigation:', error));
-    
-        function updateNavigation() {
-            const token = localStorage.getItem('token');
-            const loginSignupLink = document.getElementById('loginSignupLink');
-            const logoutLink = document.getElementById('logoutLink');
-    
-            if (token) {
-                loginSignupLink.style.display = 'none';
-                logoutLink.style.display = 'block';
-            } else {
-                loginSignupLink.style.display = 'block';
-                logoutLink.style.display = 'none';
-            }
-        }
-    
-        function logout() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('userId'); // Clear userId when logging out
-            updateNavigation();
-        }
-    
-        document.getElementById('budgetForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/pages/navigation.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('navigation-placeholder').innerHTML = html;
+                    updateNavigation(); // Call function to update navigation based on authentication state
+                })
+                .catch(error => console.error('Error fetching navigation:', error));
 
-        // Retrieve the JWT from localStorage
-        const token = localStorage.getItem('token');
+            document.getElementById('budgetForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const token = localStorage.getItem('token');
+                const category = document.getElementById('category').value;
+                const amount = document.getElementById('amount').value;
 
-        // Decode the token to get the userId
-        if (token) {
-            const decoded = jwt_decode(token);
-            const userId = decoded.userId;
+                if (token) {
+                    const response = await fetch('/api/budgets', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ category, amount })
+                    });
 
-            const category = document.getElementById('category').value;
-            const amount = document.getElementById('amount').value;
-
-            if (!userId) {
-                console.error('UserID is missing');
-                document.getElementById('message').textContent = 'Please log in again.';
-                return; // Stop execution if no userId
-            }
-
-            try {
-                const response = await fetch('/api/budgets', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify({ category, amount, userId })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    document.getElementById('message').textContent = 'Budget created successfully';
+                    const data = await response.json();
+                    if (response.ok) {
+                        document.getElementById('message').textContent = 'Budget created successfully';
+                        fetchBudgets(); // Refresh the list of budgets
+                    } else {
+                        document.getElementById('message').textContent = data.message;
+                    }
                 } else {
-                    document.getElementById('message').textContent = data.message;
+                    console.error('Token is not available');
+                    document.getElementById('message').textContent = 'Authentication token not found. Please log in.';
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('message').textContent = 'An error occurred. Please try again.';
-            }
-        } else {
-            console.error('Token is not available');
-            document.getElementById('message').textContent = 'Authentication token not found. Please log in.';
-        }
-    });
-</script>
+            });
+
+            document.getElementById('sortOrder').addEventListener('change', fetchBudgets);
+            fetchBudgets(); // Call fetchBudgets on page load to display existing budgets
+        });
+    </script>
+</body>
+</html>

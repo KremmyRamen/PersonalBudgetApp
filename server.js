@@ -1,68 +1,44 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const compression = require('compression');
-const mongoose = require('mongoose');
-const path = require('path');
+  const express = require('express');
+  const compression = require('compression');
+  const mongoose = require('mongoose');
+  const path = require('path');
 
-// Import routes
-const authRouter = require('./routes/auth');
-const budgetRouter = require('./routes/budget'); // Make sure this path is correct
-const errorHandler = require('./middleware/error');
+  const authRouter = require('./routes/auth');
+  const budgetRouter = require('./routes/budget');
+  const errorHandler = require('./middleware/error');
 
-const app = express();
-const PORT = 3000;
+  const app = express();
+  const PORT = 3000;
+  const mongoURI = 'mongodb://localhost:27017/test';
 
-// MongoDB connection URI
-const mongoURI = 'mongodb://localhost:27017/test'; // Update as necessary
+  mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }).then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
-// Connect to MongoDB
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(compression());
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use('/pages', express.static(path.join(__dirname, 'pages')));
+  app.use('/css', express.static(path.join(__dirname, 'css')));
+  app.use('/js', express.static(path.join(__dirname, 'js')));
 
-// Middleware
-app.use(bodyParser.json());
-app.use(compression());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/css', express.static(path.join(__dirname, 'css')));
-app.use('/js', express.static(path.join(__dirname, 'js')));
+  app.use('/auth', authRouter);
+  app.use('/api', budgetRouter);
+  app.use(errorHandler);
 
-// Routes
-app.use('/auth', authRouter);
-app.use('/api', budgetRouter); // This line mounts your budgetRouter under '/api'
-app.use(errorHandler);
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pages', 'index.html'));
+  });
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'pages')));
+  app.get('/pages/:page', (req, res) => {
+    const page = req.params.page; // Ensure this variable is correctly defined and used
+    res.sendFile(path.join(__dirname, 'pages', page));
+  });
 
-// Additional static files for CSS
-app.use('/css', express.static(path.join(__dirname, 'css'), {
-  setHeaders: (res, filePath) => {
-    if (path.extname(filePath) === '.css') {
-      res.setHeader('Content-Type', 'text/css');
-    }
-  }
-}));
-
-// Landing page route
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'pages', 'landingpage.html'));
-});
-
-// Dynamic page route
-app.get('/pages/:page', (req, res) => {
-  const page = req.params.page;
-  res.sendFile(path.join(__dirname, 'pages', page));
-});
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });

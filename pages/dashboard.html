@@ -5,27 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Budget App - Dashboard</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/dashboard.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
         <h1>Personal Budget App</h1>
-        <!-- Include the navigation dynamically -->
         <div id="navigation-placeholder"></div>
     </header>
     <main>
         <section>
-            <h2>Dashboard</h2>
-            <!-- Dashboard content goes here -->
+            <h2>Visualize your budgets!</h2>
+            <div id="budgetsList" class="budgets-container"></div>
+        </section>
+        <div id="budgetsDashboard" class="budgets-container"></div>
+        <section>
+            <div>
+                <label for="sortOrder">Sort By:</label>
+                <select id="sortOrder" onchange="fetchBudgetsForDashboard()">
+                    <option value="amount_desc">Amount (High to Low)</option>
+                    <option value="amount_asc">Amount (Low to High)</option>
+                    <option value="createdAt_desc">Date Created (Newest First)</option>
+                    <option value="createdAt_asc">Date Created (Oldest First)</option>
+                </select>
+            </div>
+            <div id="budgetsDashboard" class="budgets-container"></div>
         </section>
     </main>
     <footer>
         <p>&copy; 2024 Personal Budget App. Raymond Nguyen.</p>
     </footer>
-
-    <!-- Include utils.js -->
-    <script src="/js/utils.js"></script>
-
-    <!-- Fetch and include the navigation -->
+    <script src="/js/utils.js" defer></script>
+    <script src="/js/dashboard.js" defer></script>
     <script>
         fetch('/pages/navigation.html')
             .then(response => response.text())
