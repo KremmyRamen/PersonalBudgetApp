@@ -9,7 +9,8 @@
 
   const app = express();
   const PORT = 3000;
-  const mongoURI = 'mongodb://localhost:27017/test';
+  // const mongoURI = 'mongodb://localhost:27017/test';
+  const mongoURI = 'mongodb://Ramen:Ramen2021!@ac-1frznxt-shard-00-00.3svkhkc.mongodb.net:27017,ac-1frznxt-shard-00-01.3svkhkc.mongodb.net:27017,ac-1frznxt-shard-00-02.3svkhkc.mongodb.net:27017/?replicaSet=atlas-w7xe41-shard-0&ssl=true&authSource=admin'
 
   mongoose.connect(mongoURI, {
     useNewUrlParser: true,
