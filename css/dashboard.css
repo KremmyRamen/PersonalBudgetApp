@@ -1,31 +1,35 @@
 /* dashboard.css */
 .budget-card {
-    background-color: #fff;
+    background-color: #ADBBDA;  /* Very Light Blue */
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     cursor: pointer;
-    margin: 10px;
+    margin: 10px 0;
     padding: 20px;
+    width: 200px;
     transition: box-shadow 0.3s ease;
+    position: relative;
 }
 
 .budget-card:hover {
     box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
+
 .budget-header h4 {
     margin: 0 0 10px 0;
+    color: #3D52A0; /* Primary Color */
 }
 
 .visualization-options {
-    display: none; /* Hidden by default, shown on click */
-    list-style: none; /* Removes bullet points */
+    display: none;
+    list-style: none;
     padding: 0;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background-color: #EDE8F5; /* Pale Silver */
+    border: 1px solid #8697C4; /* Light Blue Gray */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 10px; /* Space between header and options */
+    margin-top: 10px;
 }
 
 .visualization-options li {
@@ -33,7 +37,7 @@
 }
 
 .visualization-options li button {
-    background-color: #007bff;
+    background-color: #7091E6; /* Lighter Blue */
     border: none;
     border-radius: 4px;
     color: white;
@@ -47,7 +51,7 @@
 }
 
 .visualization-options li button:hover {
-    background-color: #0056b3;
+    background-color: #3D52A0; 
 }
 
 #sortOrder {
@@ -104,10 +108,10 @@
 
 .budget-info {
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: #EDE8F5; /* Pale Silver */
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow for consistency */
-    margin-top: 10px; /* Space between the options and info */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 10px;
 }
 
 .budget-info h4 {
@@ -121,4 +125,59 @@
 
 .budget-info li {
     padding: 2px 0;
+}
+
+.btn {
+    flex-direction: column; /* Keeps items vertically aligned */
+    align-items: flex-start; /* Aligns items to the left */
+    padding: 10px 20px;
+    background-color: #3a8dbd;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #254ebd;
+}
+
+.create-budget-form {
+    background-color: #ADBBDA;  /* Very Light Blue */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.create-budget-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #3D52A0; /* Primary Color */
+}
+
+.create-budget-form input, .create-budget-form button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #8697C4; /* Light Blue Gray */
+}
+
+.create-budget-form button {
+    background-color: #7091E6; /* Lighter Blue */
+    color: white;
+    cursor: pointer;
+}
+
+.create-budget-form button:hover {
+    background-color: #3D52A0; /* Primary Color */
+}
+
+.existing-budgets {
+    background-color: #EDE8F5; /* Pale Silver */
+    padding: 20px;
+    border-radius: 8px;
 }

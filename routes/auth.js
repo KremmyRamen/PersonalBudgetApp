@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
         }
 
         // Generate JWT token
-        const token = jwt.sign({ userId: user._id, username: user.username }, 'your-secret-key', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id, username: user.username }, 'your-secret-key', { expiresIn: '1m' });
 
         // Send the response with token and userId
         // Removed the redundant response line

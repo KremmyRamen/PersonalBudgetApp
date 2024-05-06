@@ -11,7 +11,10 @@
 
     function fetchBudgetsForDashboard() {
         console.log("Fetching budgets for dashboard...");
-        const sortOrder = document.getElementById('sortOrder').value;
+        // Try to get the sortOrder element, and use a default value if it's not present
+        const sortOrderElement = document.getElementById('sortOrder');
+        const sortOrder = sortOrderElement ? sortOrderElement.value : 'defaultSortOrder'; // Replace 'defaultSortOrder' with your actual default
+    
         fetch(`/api/budgets?sort=${sortOrder}`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -33,7 +36,7 @@
     }
     
     function displayBudgetsForDashboard(budgets) {
-        const container = document.getElementById('budgetsDashboard'); // Make sure this is the correct ID
+        const container = document.getElementById('budgetsDashboard'); 
         container.innerHTML = '';
     
         budgets.forEach(budget => {

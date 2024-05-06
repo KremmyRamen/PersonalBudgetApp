@@ -1,154 +1,209 @@
-body, h1, h2, p, ul, li {
-    margin: 0;
-    padding: 0;
+    body, h1, h2, p, ul, li {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #EDE8F5; /* Pale Silver */
+        color: #333;
+    }
+
+    header {
+        background-color: #3D52A0; /* Primary Color */
+        color: #fff;
+        padding: 1rem;
+    }
+
+    header h1 {
+        margin: 0;
+    }
+
+    nav ul {
+        list-style-type: none;
+        display: flex;
+    }
+
+    nav ul li {
+        margin-right: 1rem;
+    }
+
+    nav ul li:last-child {
+        margin-right: 0;
+    }
+
+    nav ul li a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    main {
+        padding: 2rem;
+    }
+
+    .hero {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px 0;
+        background-color: #7091E6;  
+        color: white;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #3D52A0;
+    }
+
+    footer {
+        background-color: #3D52A0; 
+        color: #fff;
+        text-align: center;
+        padding: 1rem;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .budgets-container {
+        display: flex;
+        flex-wrap: wrap; /* Allows items to wrap to the next line */
+        justify-content: left; /* Centers items horizontally */
+        padding: 20px;
+        gap: 20px; /* Provides space between the cards */
+    }
+
+    .budget-card {
+        flex: 0 0 auto; /* Prevents the cards from growing or shrinking */
+        width: calc(50% - 20px); /* Adjusts for gap; ensures two cards per line */
+        background-color: #ADBBDA;  /* Very Light Blue */
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        cursor: pointer;
+        padding: 20px;
+        margin-bottom: 10px; /* Additional margin for vertical spacing */
+        transition: box-shadow 0.3s ease;
+        position: relative;
+    }
+    
+    .budget-card:hover {
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    .budget-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* Aligns items vertically centered */
+        margin-bottom: 10px; /* Adds space below the header */
+        cursor: pointer;
+    }
+
+    /* Additional styles for the expandable budget details */
+    .budget-details {
+        background-color: #fff;
+        padding: 10px;
+        border-top: 2px solid #eee;
+        display: none; /* Initially hidden */
+    }
+
+    .week-input {
+        margin: 10px 0;
+    }
+
+    .week-input label {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .week-input input {
+        border: 1px solid #ccc;
+        padding: 5px;
+        width: 100px;
+    }
+
+    /* Style for the save button within the budget details */
+    .week-input button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    /* Ensure the form stays within the card */
+    .budget-card form {
+        margin-top: 10px;
+    }
+
+    .delete-icon {
+        cursor: pointer;
+        color: #cc0000;
+        font-size: 1.2rem; /* Make the trash icon slightly bigger */
+        position: absolute; /* Allows absolute positioning within the card */
+        top: 10px; /* Adjust the top spacing to align with the title */
+        right: 10px; /* Adjust the right spacing to align properly */
+    }
+
+
+    .budget-card h4 {
+        font-weight: bold;
+        margin-top: 0;
+        color: #333; /* Dark grey color for text */
+    }
+
+    .budget-card p {
+        color: #666; /* Medium grey color for the amount */
+    }
+
+    /* Add this to your CSS file */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem;
-}
-
-header h1 {
-    margin: 0;
-}
-
-nav ul {
-    list-style-type: none;
-    display: flex; /* Use flexbox for layout */
-}
-
-nav ul li {
-    margin-right: 1rem;
-}
-
-nav ul li:last-child {
-    margin-right: 0; /* Remove margin from the last item */
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-}
-
-main {
-    padding: 2rem;
-}
-
-.hero {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.hero h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.btn {
-    display: inline-block;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-.budgets-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;  /* Adjust the space between cards */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
 }
 
-.budget-card {
-    background-color: #f3f3f3;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    width: 200px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: relative; /* Ensures the positioning context is set to the card */
-}
-
-.budget-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Aligns items vertically centered */
-    margin-bottom: 10px; /* Adds space below the header */
-    cursor: pointer;
-}
-
-/* Additional styles for the expandable budget details */
-.budget-details {
-    background-color: #fff;
-    padding: 10px;
-    border-top: 2px solid #eee;
-    display: none; /* Initially hidden */
-}
-
-.week-input {
-    margin: 10px 0;
-}
-
-.week-input label {
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
     font-weight: bold;
-    margin-right: 10px;
 }
 
-.week-input input {
-    border: 1px solid #ccc;
-    padding: 5px;
-    width: 100px;
-}
-
-/* Style for the save button within the budget details */
-.week-input button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
     cursor: pointer;
-    margin-top: 10px;
-}
-
-/* Ensure the form stays within the card */
-.budget-card form {
-    margin-top: 10px;
-}
-
-.delete-icon {
-    cursor: pointer;
-    color: #cc0000;
-    font-size: 1.2rem; /* Make the trash icon slightly bigger */
-    position: absolute; /* Allows absolute positioning within the card */
-    top: 10px; /* Adjust the top spacing to align with the title */
-    right: 10px; /* Adjust the right spacing to align properly */
-}
-
-
-.budget-card h4 {
-    font-weight: bold;
-    margin-top: 0;
-    color: #333; /* Dark grey color for text */
-}
-
-.budget-card p {
-    color: #666; /* Medium grey color for the amount */
 }

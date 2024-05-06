@@ -19,8 +19,10 @@ function updateNavigation() {
 // Function to handle logout
 function logout() {
     localStorage.removeItem('token');
-    updateNavigation();
+    updateNavigation(); // Updates the UI to reflect the logout state
+    window.location.href = '/pages/index.html'; // Redirects to the index page
 }
+
 
 function fetchBudgets() {
     if (document.body.getAttribute('data-page') !== 'budgets') {

@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <meta name="description" content="Dashboard to have different visualizations.">
     <header>
         <h1>Personal Budget App</h1>
         <div id="navigation-placeholder"></div>
@@ -17,18 +18,10 @@
         <section>
             <h2>Visualize your budgets!</h2>
             <div id="budgetsList" class="budgets-container"></div>
+            <a href="/pages/budget.html" class="btn">Make a new budget</a>
         </section>
         <div id="budgetsDashboard" class="budgets-container"></div>
         <section>
-            <div>
-                <label for="sortOrder">Sort By:</label>
-                <select id="sortOrder" onchange="fetchBudgetsForDashboard()">
-                    <option value="amount_desc">Amount (High to Low)</option>
-                    <option value="amount_asc">Amount (Low to High)</option>
-                    <option value="createdAt_desc">Date Created (Newest First)</option>
-                    <option value="createdAt_asc">Date Created (Oldest First)</option>
-                </select>
-            </div>
             <div id="budgetsDashboard" class="budgets-container"></div>
         </section>
     </main>

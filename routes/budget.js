@@ -23,41 +23,15 @@ router.post('/budgets', authenticateToken, async (req, res) => {
 });
 
 router.get('/budgets', authenticateToken, async (req, res) => {
-    const sortQuery = req.query.sort;
-    let sortOptions = {};
-
-    switch (sortQuery) {
-        case 'amount_desc':
-            sortOptions = { amount: -1 };
-            break;
-        case 'amount_asc':
-            sortOptions = { amount: 1 };
-            break;
-        case 'createdAt_desc':
-            sortOptions = { createdAt: -1 };
-            break;
-        case 'createdAt_asc':
-            sortOptions = { createdAt: 1 };
-            break;
-        default:
-            sortOptions = { createdAt: -1 }; // Default to sorting by newest first
-    }
     try {
-        const budgets = await Budget.find({ userId: req.userId })
-            .select('category amount week1 week2 week3 week4');
+        const budgets = await Budget.find({ userId: req.userId });
         res.json(budgets);
     } catch (error) {
         console.error("Error fetching budgets:", error);
         res.status(500).json({ message: "Internal server error", details: error.message });
     }
-    // try {
-    //     const budgets = await Budget.find({ userId: req.userId }).sort(sortOptions);
-    //     res.json(budgets);
-    // } catch (error) {
-    //     console.error('Failed to retrieve budgets:', error);
-    //     res.status(500).json({ success: false, message: 'Internal server error' });
-    // }
 });
+
 
 router.delete('/budgets/:id', authenticateToken, async (req, res) => {
     try {
