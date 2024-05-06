@@ -43,7 +43,7 @@ router.get('/budgets', authenticateToken, async (req, res) => {
             sortOptions = { createdAt: -1 }; // Default to sorting by newest first
     }
     try {
-        const budgets = await Budget.find({ userId: req.user._id })
+        const budgets = await Budget.find({ userId: req.userId })
             .select('category amount week1 week2 week3 week4');
         res.json(budgets);
     } catch (error) {

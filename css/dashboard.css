@@ -25,6 +25,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 10px; /* Space between header and options */
 }
 
 .visualization-options li {
@@ -98,5 +99,26 @@
 
 .budget-card canvas {
     width: 100%;  
-    height: 300px; 
+    height: 300px; /* Ensuring the canvas is properly sized */
+}
+
+.budget-info {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Added shadow for consistency */
+    margin-top: 10px; /* Space between the options and info */
+}
+
+.budget-info h4 {
+    margin-bottom: 5px;
+}
+
+.budget-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.budget-info li {
+    padding: 2px 0;
 }
