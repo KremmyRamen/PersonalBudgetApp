@@ -18,5 +18,10 @@
   "author": "",
   "license": "ISC",
   "keywords": [],
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@applitools/eyes-cypress": "^3.44.1",
+    "cypress": "^13.8.1",
+    "jest": "^29.7.0"
+  }
 }

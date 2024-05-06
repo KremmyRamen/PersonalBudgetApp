@@ -215,3 +215,4 @@ function toggleBudgetDetails(budgetId) {
         detailsDiv.style.display = detailsDiv.style.display === 'none' ? 'block' : 'none';
     }
 }
+
